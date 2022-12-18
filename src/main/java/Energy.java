@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Energy {
-    private int[][] energyArray;
+    private double[][] energyArray;
     BufferedImage energy;
     private int max;
     private int min;
@@ -17,11 +17,11 @@ public class Energy {
         createEnergyPic(energyArray);
     }
 
-    private void createEnergyPic(int[][] energyArray) {
+    private File createEnergyPic(double[][] energyArray) {
         this.energy = new BufferedImage(energyArray.length, energyArray[0].length, BufferedImage.TYPE_INT_RGB);
         for (int row = 0; row < energyArray.length; row++) {
             for (int col = 0; col < energyArray[row].length; col++) {
-                int value = energyArray[row][col] == 390150 ? max : energyArray[row][col];
+                double value = energyArray[row][col] == 390150 ? max : energyArray[row][col];
                 int valueb = (int)((value - min)*255.0) / (max - min); //max-min x work
                 valueb = Math.min(valueb, 255);
                 Color valuec =  new Color(valueb, valueb, valueb);
@@ -29,19 +29,20 @@ public class Energy {
                 energy.setRGB(row,col,brightness);
             }
         }
-
+        //String newFilePath =
         File outputFile = new File("saved.png");
         try {
             ImageIO.write(energy, "png", outputFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return outputFile;
     }
 
-    private int[][] buildEnergyArray(BufferedImage original) {
+    private double[][] buildEnergyArray(BufferedImage original) {
         this.max = 0;
         this.min = 390150;
-        energyArray = new int[original.getWidth()][original.getHeight()];
+        energyArray = new double[original.getWidth()][original.getHeight()];
 
         for (int row = 0; row < energyArray.length; row++) {
             for (int col = 0; col < energyArray[row].length; col++) {
@@ -74,6 +75,14 @@ public class Energy {
                 energyArray[row][col] = energyPixel;
             }
         }
+        return energyArray;
+    }
+
+    public BufferedImage getEnergyPic() {
+        return energy;
+    }
+
+    public double[][] getEnergyArray() {
         return energyArray;
     }
 }

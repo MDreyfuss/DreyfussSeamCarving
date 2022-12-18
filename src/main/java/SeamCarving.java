@@ -1,24 +1,46 @@
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import static java.lang.Math.max;
 
 public class SeamCarving {
 
     public static void main(String[] args) {
-        try {
+        Image picture = new Image("src\\main\\resources\\Broadway_tower_edit.jpg");
+    }
 
-            BufferedImage original = ImageIO.read(new File("C:\\Users\\mirdr\\IdeaProjects\\DreyfussSeamCarving\\src\\main\\resources\\Broadway_tower_edit.jpg"));
+/*
+    public class Main
+    {
+        public static void main(String[] args) {
+            int[][] seams = {
+                    {1,5,6,11,10},
+                    {3,3,8,8,11},
+                    {5,5,7,9,9}
+            };
 
-            Energy energy = new Energy(original);
+            int[][] out = new int[seams.length-1][seams[0].length];
+            int[] remove = {0,1,0,1,2};
+            for (int i = 0; i < seams.length - 1; i++)
+            {
+                for (int j=0; j<remove.length; j++)
+                {
+                    if (i >= remove[j])
+                    {
+                        out[i][j] = seams[i+1][j];
+                    }
+                    else{
+                        out[i][j] = seams[i][j];
+                    }
+                }
+            }
 
-        } catch (IOException e) {
-            System.out.println("Error reading file");
-            e.printStackTrace();
+            for (int[] intArray : out)
+            {
+                for (int num : intArray)
+                {
+                    System.out.print(num+", ");
+                }
+                System.out.println();
+            }
         }
     }
 
+*/
 }
