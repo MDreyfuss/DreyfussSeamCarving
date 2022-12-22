@@ -7,10 +7,10 @@ public class Seams {
     int[] removeVerticalSeam;
 
     public Seams(Energy energy, BufferedImage original) {
-        drawHorizontalSeamArray(energy);
-        drawVerticalSeamArray(energy);
+        createHorizontalSeamArray(energy);
+        createVerticalSeamArray(energy);
     }
-    private void drawHorizontalSeamArray(Energy energy){
+    private void createHorizontalSeamArray(Energy energy){
         horizontalSeamArray = new double[energy.getEnergyArray().length][energy.getEnergyArray()[0].length];
         for (int row = 0; row < horizontalSeamArray.length; row++) { //should it be -1?
             for (int col = 0; col < horizontalSeamArray[0].length; col++) {
@@ -24,7 +24,7 @@ public class Seams {
                             value = energy.getEnergyArray()[row-1][col-1];
                         }
                     }
-                    if (row != horizontalSeamArray.length)
+                    if (row != horizontalSeamArray.length -1)
                     {
                         if (value < energy.getEnergyArray()[row+1][col-1])
                         {
@@ -48,15 +48,43 @@ public class Seams {
             }
         }
         removeHorizontalSeam[removeHorizontalSeam.length] = minIndex;
-        for (int col = horizontalSeamArray[0].length - 1; col < 0; col--) {
-            if (minIndex != 0 && minIndex != horizontalSeamArray.length)
+        for (int col = horizontalSeamArray[0].length - 1; col > 0; col--) {
+            if (minIndex == 0)
             {
-
+                if(horizontalSeamArray[minIndex][col]>horizontalSeamArray[minIndex+1][col])
+                {
+                    minIndex += 1;
+                }
             }
+            else if (minIndex == horizontalSeamArray.length)
+            {
+                if(horizontalSeamArray[minIndex][col]>horizontalSeamArray[minIndex - 1][col])
+                {
+                    minIndex -= 1;
+                }
+            }
+            else
+            {
+                if(horizontalSeamArray[minIndex][col]<horizontalSeamArray[minIndex - 1][col])
+                {
+                    if(horizontalSeamArray[minIndex+1][col]<horizontalSeamArray[minIndex][col])
+                    {
+                        minIndex += 1;
+                    }
+                }
+                else if (horizontalSeamArray[minIndex][col+1]<horizontalSeamArray[minIndex - 1][col])
+                {
+                    minIndex += 1;
+                }
+                else {
+                    minIndex -= 1;
+                }
+            }
+            removeHorizontalSeam[col] = minIndex;
         }
 
     }
-    private void drawVerticalSeamArray(Energy energy){
+    private void createVerticalSeamArray(Energy energy){
         verticalSeamArray = new double[energy.getEnergyArray().length][energy.getEnergyArray()[0].length];
 
     }
