@@ -6,7 +6,7 @@ class SeamsTest {
 
     @Test
     void drawHorizontalSeamArray() {
-        //mock energy
+        //
     }
 
 }

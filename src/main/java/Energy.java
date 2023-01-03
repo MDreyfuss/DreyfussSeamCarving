@@ -9,11 +9,13 @@ public class Energy {
     BufferedImage energy;
     private int max;
     private int min;
+    private String newFile;
 
 
-    Energy(BufferedImage pic)
+    Energy(BufferedImage pic, String filePath)
     {
         this.energyArray = buildEnergyArray(pic);
+        newFile = filePath.substring(0, filePath.lastIndexOf(".")) + "ENERGY.png";
         createEnergyPic(energyArray);
     }
 
@@ -29,8 +31,7 @@ public class Energy {
                 energy.setRGB(row,col,brightness);
             }
         }
-        //String newFilePath =
-        File outputFile = new File("saved.png");
+        File outputFile = new File(newFile);
         try {
             ImageIO.write(energy, "png", outputFile);
         } catch (IOException e) {
