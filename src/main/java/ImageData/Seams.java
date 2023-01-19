@@ -1,13 +1,11 @@
 package ImageData;
 
-import java.awt.image.BufferedImage;
-
 public class Seams {
     double[][] horizontalSeamArray;
     double[][] verticalSeamArray;
     int[] removeSeam;
 
-    public Seams(Energy energy, BufferedImage original) {
+    public Seams(Energy energy) {
         createHorizontalSeamArray(energy);
         createVerticalSeamArray(energy);
     }
@@ -17,23 +15,23 @@ public class Seams {
             for (int row = 0; row < horizontalSeamArray[0].length; row++) {
                 double value = 0;
                 if (col!= 0){
-                    value = energy.getEnergyArray()[col-1][row];
+                    value = horizontalSeamArray[col-1][row];
                     if (row != 0)
                     {
-                        if (value > energy.getEnergyArray()[col-1][row-1])
+                        if (value > horizontalSeamArray[col-1][row-1])
                         {
-                            value = energy.getEnergyArray()[col-1][row-1];
+                            value = horizontalSeamArray[col-1][row-1];
                         }
                     }
                     if (row != horizontalSeamArray[0].length -1)
                     {
-                        if (value > energy.getEnergyArray()[col-1][row+1])
+                        if (value > horizontalSeamArray[col-1][row+1])
                         {
-                            value = energy.getEnergyArray()[col-1][row+1];
+                            value = horizontalSeamArray[col-1][row+1];
                         }
                     }
                 }
-                horizontalSeamArray[col][row] = energy.getEnergyArray()[col][row]+value;
+                horizontalSeamArray[col][row] = energy.getEnergyArray()[col][row] + value;
             }
         }
     }
@@ -92,24 +90,32 @@ public class Seams {
             for (int col = 0; col < verticalSeamArray[0].length; col++) {
                 double value = 0;
                 if (row!= 0){
-                    value = energy.getEnergyArray()[col][row-1];
+                    value = verticalSeamArray[col][row-1];
                     if (col != 0)
                     {
-                        if (value > energy.getEnergyArray()[col-1][row-1])
+                        if (value > verticalSeamArray[col-1][row-1])
                         {
-                            value = energy.getEnergyArray()[col-1][row-1];
+                            value = verticalSeamArray[col-1][row-1];
                         }
                     }
                     if (col != verticalSeamArray[0].length -1)
                     {
-                        if (value > energy.getEnergyArray()[col+1][row-1])
+                        if (value > verticalSeamArray[col+1][row-1])
                         {
-                            value = energy.getEnergyArray()[col+1][row-1];
+                            value = verticalSeamArray[col+1][row-1];
                         }
                     }
                 }
                 verticalSeamArray[row][col] = energy.getEnergyArray()[col][row]+value;
             }
         }
+    }
+
+    public double[][] getHorizontalSeamArray() {
+        return horizontalSeamArray;
+    }
+
+    public double[][] getVerticalSeamArray() {
+        return verticalSeamArray;
     }
 }

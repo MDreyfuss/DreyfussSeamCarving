@@ -13,7 +13,7 @@ public class Energy {
     private int max;
     private int min;
 
-    Energy(BufferedImage pic)
+    public Energy(BufferedImage pic)
     {
         this.energyArray = buildEnergyArray(pic);
     }
