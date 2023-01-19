@@ -7,6 +7,7 @@ public class Image {
     String filePath;
     BufferedImage original;
     BufferedImage current;
+    Energy energy;
 
     Image(String filePath){
         this.filePath = filePath;
@@ -17,8 +18,9 @@ public class Image {
             System.out.println("Error reading file");
             e.printStackTrace();
         }
+        this.energy = new Energy(original);
     }
-
+/*
     public File horizontalSeamCarving(int numToRemove){
         for (int i = 0; i < numToRemove; i++) {
             Energy energy = new Energy(current, filePath);
@@ -82,4 +84,5 @@ public class Image {
         }
         return newImage;
     }
+    */
 }

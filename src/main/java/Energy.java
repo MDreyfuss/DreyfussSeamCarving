@@ -6,34 +6,32 @@ import java.io.IOException;
 
 public class Energy {
     private double[][] energyArray;
-    BufferedImage energy;
+    private final int MAX_ENERGY = 390150;
+    BufferedImage energyImage;
     private int max;
     private int min;
-    private String newFile;
 
 
-    Energy(BufferedImage pic, String filePath)
+    Energy(BufferedImage pic)
     {
         this.energyArray = buildEnergyArray(pic);
-        newFile = filePath.substring(0, filePath.lastIndexOf(".")) + "ENERGY.png";
-        createEnergyPic(energyArray);
     }
 
-    private File createEnergyPic(double[][] energyArray) {
-        this.energy = new BufferedImage(energyArray.length, energyArray[0].length, BufferedImage.TYPE_INT_RGB);
+    public File createEnergyPic(String newFilePath) {
+        this.energyImage = new BufferedImage(energyArray.length, energyArray[0].length, BufferedImage.TYPE_INT_RGB);
         for (int row = 0; row < energyArray.length; row++) {
             for (int col = 0; col < energyArray[row].length; col++) {
-                double value = energyArray[row][col] == 390150 ? max : energyArray[row][col];
-                int valueb = (int)((value - min)*255.0) / (max - min); //max-min x work
+                double value = energyArray[row][col] == MAX_ENERGY ? max : energyArray[row][col];
+                int valueb = (int)((value - min)*255.0) / (max - min);
                 valueb = Math.min(valueb, 255);
                 Color valuec =  new Color(valueb, valueb, valueb);
                 int brightness = valuec.getRGB();
-                energy.setRGB(row,col,brightness);
+                energyImage.setRGB(row,col,brightness);
             }
         }
-        File outputFile = new File(newFile);
+        File outputFile = new File(newFilePath);
         try {
-            ImageIO.write(energy, "png", outputFile);
+            ImageIO.write(energyImage, "png", outputFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,15 +39,15 @@ public class Energy {
     }
 
     private double[][] buildEnergyArray(BufferedImage original) {
-        this.max = 0;
-        this.min = 390150;
+        this.max = 0; //these values are useful for creating an energy image
+        this.min = MAX_ENERGY;
         energyArray = new double[original.getWidth()][original.getHeight()];
 
         for (int row = 0; row < energyArray.length; row++) {
             for (int col = 0; col < energyArray[row].length; col++) {
                 int energyPixel;
                 if (row == 0 || row >= (original.getWidth()-1) || col == 0 || col >= (original.getHeight()-1)) {
-                    energyPixel = 390150;
+                    energyPixel = MAX_ENERGY;
                 } else {
                     Color left = new Color(original.getRGB(row, col - 1));
                     Color right = new Color(original.getRGB(row, col + 1));
@@ -77,10 +75,6 @@ public class Energy {
             }
         }
         return energyArray;
-    }
-
-    public BufferedImage getEnergyPic() {
-        return energy;
     }
 
     public double[][] getEnergyArray() {
