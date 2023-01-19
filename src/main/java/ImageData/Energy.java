@@ -1,3 +1,5 @@
+package ImageData;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,7 +12,6 @@ public class Energy {
     BufferedImage energyImage;
     private int max;
     private int min;
-
 
     Energy(BufferedImage pic)
     {

@@ -1,6 +1,5 @@
+import ImageData.Energy;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.css.CSSPrimitiveValue;
-import org.w3c.dom.css.RGBColor;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

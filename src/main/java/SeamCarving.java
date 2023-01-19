@@ -1,4 +1,4 @@
-import java.io.File;
+import ImageData.Image;
 
 public class SeamCarving {
 

@@ -1,3 +1,5 @@
+package ImageData;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,7 +11,7 @@ public class Image {
     BufferedImage current;
     Energy energy;
 
-    Image(String filePath){
+    public Image(String filePath){
         this.filePath = filePath;
         try {
             this.original = ImageIO.read(new File(filePath));
@@ -23,8 +25,8 @@ public class Image {
 /*
     public File horizontalSeamCarving(int numToRemove){
         for (int i = 0; i < numToRemove; i++) {
-            Energy energy = new Energy(current, filePath);
-            Seams seams = new Seams(energy, current);
+            EnergyAndSeams.Energy energy = new EnergyAndSeams.Energy(current, filePath);
+            EnergyAndSeams.Seams seams = new EnergyAndSeams.Seams(energy, current);
             int[] toremove = seams.calcRemoveSeam(seams.horizontalSeamArray);
             current = removeHorizontal(toremove);
         }
@@ -40,8 +42,8 @@ public class Image {
 
     public File verticalSeamCarving(int numToRemove){
         for (int i = 0; i < numToRemove; i++) {
-            Energy energy = new Energy(current, filePath);
-            Seams seams = new Seams(energy, current);
+            EnergyAndSeams.Energy energy = new EnergyAndSeams.Energy(current, filePath);
+            EnergyAndSeams.Seams seams = new EnergyAndSeams.Seams(energy, current);
             int[] toremove = seams.calcRemoveSeam(seams.verticalSeamArray);
             current = removeVertical(toremove);
         }
