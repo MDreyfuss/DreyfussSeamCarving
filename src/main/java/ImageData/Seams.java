@@ -86,27 +86,27 @@ public class Seams {
     }
     private void createVerticalSeamArray(Energy energy){
         verticalSeamArray = new double[energy.getEnergyArray()[0].length][energy.getEnergyArray().length];
-        for (int row = 0; row < verticalSeamArray.length; row++) {
-            for (int col = 0; col < verticalSeamArray[0].length; col++) {
+        for (int col = 0; col < energy.getEnergyArray()[0].length; col++) {
+            for (int row = 0; row < energy.getEnergyArray().length; row++) {
                 double value = 0;
-                if (row!= 0){
-                    value = verticalSeamArray[col][row-1];
-                    if (col != 0)
+                if (col!= 0){
+                    value = verticalSeamArray[col-1][row];
+                    if (row != 0)
                     {
                         if (value > verticalSeamArray[col-1][row-1])
                         {
                             value = verticalSeamArray[col-1][row-1];
                         }
                     }
-                    if (col != verticalSeamArray[0].length -1)
+                    if (row != verticalSeamArray[0].length -1)
                     {
-                        if (value > verticalSeamArray[col+1][row-1])
+                        if (value > verticalSeamArray[col-1][row+1])
                         {
-                            value = verticalSeamArray[col+1][row-1];
+                            value = verticalSeamArray[col-1][row+1];
                         }
                     }
                 }
-                verticalSeamArray[row][col] = energy.getEnergyArray()[col][row]+value;
+                verticalSeamArray[col][row] = energy.getEnergyArray()[row][col]+value;
             }
         }
     }
