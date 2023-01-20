@@ -1,4 +1,4 @@
-import ImageData.Energy;
+import imageData.Energy;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;

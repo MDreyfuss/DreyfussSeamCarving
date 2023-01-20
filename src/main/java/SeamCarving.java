@@ -1,4 +1,4 @@
-import ImageData.Image;
+import imageData.Image;
 
 public class SeamCarving {
 

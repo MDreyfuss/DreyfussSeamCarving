@@ -1,5 +1,5 @@
-import ImageData.Energy;
-import ImageData.Seams;
+import imageData.Energy;
+import imageData.Seams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,26 +26,26 @@ class SeamsTest {
     void createHorizontalSeamArray() {
 
 
-        double[][] expectHorizontalSeams = {
+        double[][] expectHorizontalEnergies = {
                 {1.0,4.0,3.0,5.0},
                 {4.0,3.0,4.0,9.0},
                 {5.0,8.0,7.0,5.0},
                 {9.0,8.0,7.0,6.0}};
 
 
-        assertArrayEquals(expectHorizontalSeams, testSeams.getHorizontalSeamArray());
+        assertArrayEquals(expectHorizontalEnergies, testSeams.getHorizontalEnergyArray());
     }
 
     @Test
     void createVerticalSeamArray() {
-        double[][] expectVerticalSeams = {
+        double[][] expectVerticalEnergies = {
                 {1.0,3.0,2.0,4.0},
                 {5.0,3.0,7.0,5.0},
                 {6.0,4.0,7.0,7.0},
                 {9.0,10.0,5.0,8.0}};
 
 
-        assertArrayEquals(expectVerticalSeams,testSeams.getVerticalSeamArray());
+        assertArrayEquals(expectVerticalEnergies,testSeams.getVerticalEnergyArray());
 
     }
 
