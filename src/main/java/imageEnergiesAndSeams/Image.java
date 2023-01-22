@@ -3,10 +3,10 @@ package imageData;
 import java.awt.image.BufferedImage;
 
 public class Image {
-    BufferedImage bufferedImage;
-    int[][] originalPic;
-    int[][] currentPic;
-    Energy energy;
+    private BufferedImage bufferedImage;
+    private int[][] originalPic;
+    private int[][] currentPic;
+    private Energy energy;
 
     public Image(BufferedImage bufferedImage){
         this.bufferedImage = bufferedImage;

@@ -1,15 +1,15 @@
-import imageData.Energy;
+import imageEnergiesAndSeams.Energy;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnergyTest {
 
     @Test
-    void testBuildEnergyArray() {
+    void buildEnergyArray() {
+        //given
         int [][] testImage = new int[3][4];
         testImage[0][0] = new Color(30, 30, 30).getRGB();
         testImage[0][1] = new Color(193, 78, 78).getRGB();
@@ -24,6 +24,8 @@ class EnergyTest {
         testImage[2][2] = new Color(115, 30, 30).getRGB();
         testImage[2][3] = new Color(124, 82, 133).getRGB();
 
+        //when
+        Energy testEnergy = new Energy(testImage);
 
         double[][] expectedArray = {
                 {390150.0,390150.0,390150.0,390150.0},
@@ -31,8 +33,7 @@ class EnergyTest {
                 {390150.0,390150.0,390150.0,390150.0},
         };
 
-        Energy testEnergy = new Energy(testImage);
-
+        //then
         assertArrayEquals(expectedArray, testEnergy.getEnergyArray());
     }
 }
