@@ -51,28 +51,28 @@ public class Seams {
         for (int col = seamArray.length - 2; col >= 0; col--) {
             if (minIndex == 0)
             {
-                if(seamArray[col][minIndex]>seamArray[col][minIndex+1])
+                if(seamArray[col][minIndex] > seamArray[col][minIndex+1])
                 {
                     minIndex += 1;
                 }
             }
             else if (minIndex == seamArray[0].length)
             {
-                if(seamArray[col][minIndex]>seamArray[col][minIndex - 1])
+                if(seamArray[col][minIndex] > seamArray[col][minIndex - 1])
                 {
                     minIndex -= 1;
                 }
             }
             else
             {
-                if(seamArray[col][minIndex]<seamArray[col][minIndex - 1])
+                if(seamArray[col][minIndex] < seamArray[col][minIndex - 1])
                 {
-                    if(seamArray[col][minIndex+1]<seamArray[col][minIndex])
+                    if(seamArray[col][minIndex+1] < seamArray[col][minIndex])
                     {
                         minIndex += 1;
                     }
                 }
-                else if (seamArray[col][minIndex+1]<seamArray[col][minIndex - 1])
+                else if (seamArray[col][minIndex+1] < seamArray[col][minIndex - 1])
                 {
                     minIndex += 1;
                 }
