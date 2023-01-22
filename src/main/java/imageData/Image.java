@@ -7,84 +7,86 @@ import java.io.IOException;
 
 public class Image {
     String filePath;
-    BufferedImage original;
-    BufferedImage current;
+    BufferedImage bufferedImage;
+    int[][] originalPic;
+    int[][] currentPic;
     Energy energy;
 
     public Image(String filePath){
         this.filePath = filePath;
         try {
-            this.original = ImageIO.read(new File(filePath));
-            this.current = original;
+            this.bufferedImage = ImageIO.read(new File(filePath));
         } catch (IOException e) {
             System.out.println("Error reading file");
             e.printStackTrace();
         }
-        this.energy = new Energy(original);
-    }
-/*
-    public File horizontalSeamCarving(int numToRemove){
-        for (int i = 0; i < numToRemove; i++) {
-            EnergyAndSeams.Energy energy = new EnergyAndSeams.Energy(current, filePath);
-            EnergyAndSeams.Seams seams = new EnergyAndSeams.Seams(energy, current);
-            int[] toremove = seams.calcRemoveSeam(seams.horizontalSeamArray);
-            current = removeHorizontal(toremove);
-        }
-        String newFile = filePath.substring(0, filePath.lastIndexOf(".")) + "NEW.png";
-        File outputFile = new File(newFile);
-        try {
-            ImageIO.write(current, "png", outputFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return outputFile;
+        buildColorArray(this.bufferedImage);
+        this.energy = new Energy(originalPic);
     }
 
-    public File verticalSeamCarving(int numToRemove){
-        for (int i = 0; i < numToRemove; i++) {
-            EnergyAndSeams.Energy energy = new EnergyAndSeams.Energy(current, filePath);
-            EnergyAndSeams.Seams seams = new EnergyAndSeams.Seams(energy, current);
-            int[] toremove = seams.calcRemoveSeam(seams.verticalSeamArray);
-            current = removeVertical(toremove);
+    private void buildColorArray(BufferedImage original) {
+        originalPic = new int[original.getHeight()][original.getWidth()];
+        currentPic = new int[original.getHeight()][original.getWidth()];
+        for (int row = 0; row < original.getHeight(); row++) {
+            for (int col = 0; col < original.getWidth(); col++) {
+                originalPic[row][col] = original.getRGB(row, col);
+                currentPic[row][col] = original.getRGB(row, col);
+            }
         }
-        String newFile = filePath.substring(0, filePath.lastIndexOf(".")) + "NEW.png";
-        File outputFile = new File(newFile);
-        try {
-            ImageIO.write(current, "png", outputFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return outputFile;
     }
 
-    private BufferedImage removeVertical(int[] toremove) {
-        BufferedImage newImage = new BufferedImage(current.getWidth()-1, current.getHeight(), BufferedImage.TYPE_INT_RGB);
-        for (int i = 0; i < current.getWidth()-1; i++) {
-            for (int j = 0; j < current.getHeight(); j++) {
-                if (i < toremove[j]){
-                    newImage.setRGB(i,j, current.getRGB(i,j));
+    public int[][] horizontalSeamCarving(int numToRemove){
+        for (int i = 0; i < numToRemove; i++) {
+            Energy energy = new Energy(currentPic);
+            Seams seams = new Seams(energy);
+            int[] toremove = seams.calcRemoveSeam(seams.getHorizontalEnergyArray());
+            currentPic = removeHorizontal(toremove);
+        }
+        return currentPic;
+    }
+
+    public int[][] verticalSeamCarving(int numToRemove){
+        for (int i = 0; i < numToRemove; i++) {
+            Energy energy = new Energy(currentPic);
+            Seams seams = new Seams(energy);
+            int[] toremove = seams.calcRemoveSeam(seams.getVerticalEnergyArray());
+            currentPic = removeVertical(toremove);
+        }
+        return currentPic;
+    }
+
+    private int[][] removeVertical(int[] seamToRemove) {
+        int width = currentPic[0].length;
+        int height = currentPic.length;
+        int[][] newImage = new int[width][height];
+        for (int i = 0; i < width-1; i++) {
+            for (int j = 0; j < height; j++) {
+                if (i < seamToRemove[j]){
+                    newImage[i][j] = currentPic[i][j];
                 }
                 else{
-                    newImage.setRGB(i,j,current.getRGB(i+1,j));
+                    newImage[i][j] = currentPic[i+1][j];
                 }
             }
         }
         return newImage;
     }
 
-    private BufferedImage removeHorizontal(int[] toremove) {
-        BufferedImage newImage = new BufferedImage(current.getWidth(), current.getHeight()-1, BufferedImage.TYPE_INT_RGB);
-        for (int i = 0; i < current.getHeight()-1; i++) {
-            for (int j = 0; j < current.getWidth(); j++) {
-                if (i < toremove[j]){
-                    newImage.setRGB(j,i, current.getRGB(j,i));
+    private int[][] removeHorizontal(int[] seamToRemove) {
+        int width = currentPic[0].length;
+        int height = currentPic.length;
+        int[][] newImage = new int[width][height-1];
+        for (int i = 0; i < height-1; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i < seamToRemove[j]){
+                    newImage[j][i] = currentPic[j][i];
                 }
                 else{
-                    newImage.setRGB(j,i,current.getRGB(j,i+1));
+                    newImage[j][i] = currentPic[j][i+1];
                 }
             }
         }
         return newImage;
     }
-    */
+
 }

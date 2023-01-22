@@ -13,7 +13,7 @@ public class Energy {
     private int max;
     private int min;
 
-    public Energy(BufferedImage pic)
+    public Energy(int[][] pic)
     {
         this.energyArray = buildEnergyArray(pic);
     }
@@ -39,21 +39,23 @@ public class Energy {
         return outputFile;
     }
 
-    private double[][] buildEnergyArray(BufferedImage original) {
+    private double[][] buildEnergyArray(int[][] original) {
         this.max = 0; //these values are useful for creating an energy image
         this.min = MAX_ENERGY;
-        energyArray = new double[original.getWidth()][original.getHeight()];
+        int width = original[0].length;
+        int height = original.length;
+        energyArray = new double[width][height];
 
         for (int row = 0; row < energyArray.length; row++) {
             for (int col = 0; col < energyArray[row].length; col++) {
                 int energyPixel;
-                if (row == 0 || row >= (original.getWidth()-1) || col == 0 || col >= (original.getHeight()-1)) {
+                if (row == 0 || row >= (width-1) || col == 0 || col >= (height-1)) {
                     energyPixel = MAX_ENERGY;
                 } else {
-                    Color left = new Color(original.getRGB(row, col - 1));
-                    Color right = new Color(original.getRGB(row, col + 1));
-                    Color up = new Color(original.getRGB(row - 1, col));
-                    Color down = new Color(original.getRGB(row + 1, col));
+                    Color left = new Color(original[row][col - 1]);
+                    Color right = new Color(original[row][col + 1]);
+                    Color up = new Color(original[row - 1][col]);
+                    Color down = new Color(original[row + 1][col]);
 
                     energyPixel = (up.getRed() - down.getRed()) * (up.getRed() - down.getRed())
                             + (up.getGreen() - down.getGreen()) * (up.getGreen() - down.getGreen())
