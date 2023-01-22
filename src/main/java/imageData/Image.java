@@ -6,20 +6,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Image {
-    String filePath;
     BufferedImage bufferedImage;
     int[][] originalPic;
     int[][] currentPic;
     Energy energy;
 
-    public Image(String filePath){
-        this.filePath = filePath;
-        try {
-            this.bufferedImage = ImageIO.read(new File(filePath));
-        } catch (IOException e) {
-            System.out.println("Error reading file");
-            e.printStackTrace();
-        }
+    public Image(BufferedImage bufferedImage){
+        this.bufferedImage = bufferedImage;
         buildColorArray(this.bufferedImage);
         this.energy = new Energy(originalPic);
     }
@@ -55,10 +48,10 @@ public class Image {
         return currentPic;
     }
 
-    private int[][] removeVertical(int[] seamToRemove) {
+    public int[][] removeHorizontal(int[] seamToRemove) {
         int width = currentPic[0].length;
         int height = currentPic.length;
-        int[][] newImage = new int[width][height];
+        int[][] newImage = new int[width-1][height];
         for (int i = 0; i < width-1; i++) {
             for (int j = 0; j < height; j++) {
                 if (i < seamToRemove[j]){
@@ -72,7 +65,7 @@ public class Image {
         return newImage;
     }
 
-    private int[][] removeHorizontal(int[] seamToRemove) {
+    public int[][] removeVertical(int[] seamToRemove) {
         int width = currentPic[0].length;
         int height = currentPic.length;
         int[][] newImage = new int[width][height-1];
