@@ -1,4 +1,4 @@
-import imageEnergiesAndSeams.Energy;
+package imageEnergiesAndSeams;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;

@@ -1,4 +1,4 @@
-package imageData;
+package imageEnergiesAndSeams;
 
 public class Seams {
     double[][] horizontalEnergyArray;

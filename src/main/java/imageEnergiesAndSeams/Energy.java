@@ -1,4 +1,4 @@
-package imageData;
+package imageEnergiesAndSeams;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

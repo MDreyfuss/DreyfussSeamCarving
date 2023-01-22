@@ -1,5 +1,3 @@
-import imageData.Image;
-
 public class SeamCarving {
 
     public static void main(String[] args) {

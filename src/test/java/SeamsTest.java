@@ -1,5 +1,5 @@
-import imageData.Energy;
-import imageData.Seams;
+import imageEnergiesAndSeams.Energy;
+import imageEnergiesAndSeams.Seams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,7 +11,7 @@ class SeamsTest {
     Seams testSeams;
 
     @BeforeEach
-    void Setup(){
+    void setup(){
         this.testEnergy= Mockito.mock(Energy.class);
         double[][] testEnergyArray = {
                 {1.0,4.0,3.0,5.0},
@@ -47,13 +47,13 @@ class SeamsTest {
     @Test
     void calcRemoveSeam() {
 
-        double[][] testRemove ={
+        double[][] testEnergiesArray ={
                 {1.0,3.0,2.0,4.0},
                 {5.0,3.0,7.0,5.0},
                 {6.0,4.0,7.0,7.0}};
         int[] expectRemove = {0,1,1};
 
-        assertArrayEquals(expectRemove, testSeams.calcRemoveSeam(testRemove));
+        assertArrayEquals(expectRemove, testSeams.calcRemoveSeam(testEnergiesArray));
     }
 
 }

@@ -1,4 +1,4 @@
-package imageData;
+package imageEnergiesAndSeams;
 
 import java.awt.image.BufferedImage;
 
