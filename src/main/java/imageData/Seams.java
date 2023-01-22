@@ -6,32 +6,32 @@ public class Seams {
     int[] removeSeam;
 
     public Seams(Energy energy) {
-        createHorizontalEnergyArray(energy);
         createVerticalEnergyArray(energy);
+        createHorizontalEnergyArray(energy);
     }
-    private void createHorizontalEnergyArray(Energy energy){
-        horizontalEnergyArray = new double[energy.getEnergyArray().length][energy.getEnergyArray()[0].length];
-        for (int col = 0; col < horizontalEnergyArray.length; col++) {
-            for (int row = 0; row < horizontalEnergyArray[0].length; row++) {
+    private void createVerticalEnergyArray(Energy energy){
+        verticalEnergyArray = new double[energy.getEnergyArray().length][energy.getEnergyArray()[0].length];
+        for (int col = 0; col < verticalEnergyArray.length; col++) {
+            for (int row = 0; row < verticalEnergyArray[0].length; row++) {
                 double value = 0;
                 if (col!= 0){
-                    value = horizontalEnergyArray[col-1][row];
+                    value = verticalEnergyArray[col-1][row];
                     if (row != 0)
                     {
-                        if (value > horizontalEnergyArray[col-1][row-1])
+                        if (value > verticalEnergyArray[col-1][row-1])
                         {
-                            value = horizontalEnergyArray[col-1][row-1];
+                            value = verticalEnergyArray[col-1][row-1];
                         }
                     }
-                    if (row != horizontalEnergyArray[0].length -1)
+                    if (row != verticalEnergyArray[0].length -1)
                     {
-                        if (value > horizontalEnergyArray[col-1][row+1])
+                        if (value > verticalEnergyArray[col-1][row+1])
                         {
-                            value = horizontalEnergyArray[col-1][row+1];
+                            value = verticalEnergyArray[col-1][row+1];
                         }
                     }
                 }
-                horizontalEnergyArray[col][row] = energy.getEnergyArray()[col][row] + value;
+                verticalEnergyArray[col][row] = energy.getEnergyArray()[col][row] + value;
             }
         }
     }
@@ -84,29 +84,29 @@ public class Seams {
         }
         return removeSeam;
     }
-    private void createVerticalEnergyArray(Energy energy){
-        verticalEnergyArray = new double[energy.getEnergyArray()[0].length][energy.getEnergyArray().length];
+    private void createHorizontalEnergyArray(Energy energy){
+        horizontalEnergyArray = new double[energy.getEnergyArray()[0].length][energy.getEnergyArray().length];
         for (int col = 0; col < energy.getEnergyArray()[0].length; col++) {
             for (int row = 0; row < energy.getEnergyArray().length; row++) {
                 double value = 0;
                 if (col!= 0){
-                    value = verticalEnergyArray[col-1][row];
+                    value = horizontalEnergyArray[col-1][row];
                     if (row != 0)
                     {
-                        if (value > verticalEnergyArray[col-1][row-1])
+                        if (value > horizontalEnergyArray[col-1][row-1])
                         {
-                            value = verticalEnergyArray[col-1][row-1];
+                            value = horizontalEnergyArray[col-1][row-1];
                         }
                     }
-                    if (row != verticalEnergyArray[0].length -1)
+                    if (row != horizontalEnergyArray[0].length -1)
                     {
-                        if (value > verticalEnergyArray[col-1][row+1])
+                        if (value > horizontalEnergyArray[col-1][row+1])
                         {
-                            value = verticalEnergyArray[col-1][row+1];
+                            value = horizontalEnergyArray[col-1][row+1];
                         }
                     }
                 }
-                verticalEnergyArray[col][row] = energy.getEnergyArray()[row][col]+value;
+                horizontalEnergyArray[col][row] = energy.getEnergyArray()[row][col]+value;
             }
         }
     }

@@ -10,7 +10,7 @@ class EnergyTest {
 
     @Test
     void testBuildEnergyArray() {
-        int [][] testImage = new int[4][4];
+        int [][] testImage = new int[3][4];
         testImage[0][0] = new Color(30, 30, 30).getRGB();
         testImage[0][1] = new Color(193, 78, 78).getRGB();
         testImage[0][2] = new Color(76, 117, 70).getRGB();
@@ -23,16 +23,12 @@ class EnergyTest {
         testImage[2][1] = new Color(196, 6, 50).getRGB();
         testImage[2][2] = new Color(115, 30, 30).getRGB();
         testImage[2][3] = new Color(124, 82, 133).getRGB();
-        testImage[3][0] = new Color(206, 75, 255).getRGB();
-        testImage[3][1] = new Color(178, 201, 138).getRGB();
-        testImage[3][2] = new Color(68, 31, 231).getRGB();
-        testImage[3][3] = new Color(29, 98, 227).getRGB();
+
 
         double[][] expectedArray = {
                 {390150.0,390150.0,390150.0,390150.0},
                 {390150.0,44154.0,97452.0,390150.0},
-                {390150.0,98531.0,95563.0,390150.0},
-                {390150.0,390150.0,390150.0,390150.0}
+                {390150.0,390150.0,390150.0,390150.0},
         };
 
         Energy testEnergy = new Energy(testImage);

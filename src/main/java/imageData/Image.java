@@ -1,9 +1,6 @@
 package imageData;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Image {
     BufferedImage bufferedImage;
@@ -20,10 +17,10 @@ public class Image {
     private void buildColorArray(BufferedImage original) {
         originalPic = new int[original.getHeight()][original.getWidth()];
         currentPic = new int[original.getHeight()][original.getWidth()];
-        for (int row = 0; row < original.getHeight(); row++) {
-            for (int col = 0; col < original.getWidth(); col++) {
-                originalPic[row][col] = original.getRGB(row, col);
-                currentPic[row][col] = original.getRGB(row, col);
+        for (int x = 0; x < original.getWidth(); x++) {
+            for (int y = 0; y < original.getHeight(); y++) {
+                originalPic[y][x] = original.getRGB(x, y);
+                currentPic[y][x] = original.getRGB(x, y);
             }
         }
     }
@@ -49,16 +46,16 @@ public class Image {
     }
 
     public int[][] removeHorizontal(int[] seamToRemove) {
-        int width = currentPic[0].length;
         int height = currentPic.length;
-        int[][] newImage = new int[width-1][height];
-        for (int i = 0; i < width-1; i++) {
-            for (int j = 0; j < height; j++) {
-                if (i < seamToRemove[j]){
-                    newImage[i][j] = currentPic[i][j];
+        int width = currentPic[0].length;
+        int[][] newImage = new int[height - 1][width];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height-1; y++) {
+                if (y < seamToRemove[x]){
+                    newImage[y][x] = currentPic[y][x];
                 }
                 else{
-                    newImage[i][j] = currentPic[i+1][j];
+                    newImage[y][x] = currentPic[y+1][x];
                 }
             }
         }
@@ -66,20 +63,23 @@ public class Image {
     }
 
     public int[][] removeVertical(int[] seamToRemove) {
-        int width = currentPic[0].length;
         int height = currentPic.length;
-        int[][] newImage = new int[width][height-1];
-        for (int i = 0; i < height-1; i++) {
-            for (int j = 0; j < width; j++) {
-                if (i < seamToRemove[j]){
-                    newImage[j][i] = currentPic[j][i];
+        int width = currentPic[0].length;
+        int[][] newImage = new int[height][width - 1];
+        for (int x = 0; x < width-1; x++) {
+            for (int y = 0; y < height; y++) {
+                if (x < seamToRemove[y]){
+                    newImage[y][x] = currentPic[y][x];
                 }
                 else{
-                    newImage[j][i] = currentPic[j][i+1];
+                    newImage[y][x] = currentPic[y][x+1];
                 }
             }
         }
         return newImage;
     }
 
+    public int[][] getCurrentPic() {
+        return currentPic;
+    }
 }

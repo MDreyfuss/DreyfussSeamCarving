@@ -16,36 +16,31 @@ class SeamsTest {
         double[][] testEnergyArray = {
                 {1.0,4.0,3.0,5.0},
                 {3.0,2.0,1.0,6.0},
-                {2.0,5.0,4.0,1.0},
-                {4.0,3.0,2.0,1.0}};
+                {2.0,5.0,4.0,1.0}};
         Mockito.doReturn(testEnergyArray).when(testEnergy).getEnergyArray();
         this.testSeams = new Seams(testEnergy);
     }
 
     @Test
-    void createHorizontalSeamArray() {
+    void createVerticalSeamArray() {
 
-
-        double[][] expectHorizontalEnergies = {
+        double[][] expectVerticalEnergies = {
                 {1.0,4.0,3.0,5.0},
                 {4.0,3.0,4.0,9.0},
-                {5.0,8.0,7.0,5.0},
-                {9.0,8.0,7.0,6.0}};
+                {5.0,8.0,7.0,5.0}};
 
-
-        assertArrayEquals(expectHorizontalEnergies, testSeams.getHorizontalEnergyArray());
+        assertArrayEquals(expectVerticalEnergies, testSeams.getVerticalEnergyArray());
     }
 
     @Test
-    void createVerticalSeamArray() {
-        double[][] expectVerticalEnergies = {
-                {1.0,3.0,2.0,4.0},
-                {5.0,3.0,7.0,5.0},
-                {6.0,4.0,7.0,7.0},
-                {9.0,10.0,5.0,8.0}};
+    void createHorizontalSeamArray() {
+        double[][] expectHorizontalEnergies = {
+                {1.0,3.0,2.0},
+                {5.0,3.0,7.0},
+                {6.0,4.0,7.0},
+                {9.0,10.0,5.0}};
 
-
-        assertArrayEquals(expectVerticalEnergies,testSeams.getVerticalEnergyArray());
+        assertArrayEquals(expectHorizontalEnergies,testSeams.getHorizontalEnergyArray());
 
     }
 
@@ -55,9 +50,8 @@ class SeamsTest {
         double[][] testRemove ={
                 {1.0,3.0,2.0,4.0},
                 {5.0,3.0,7.0,5.0},
-                {6.0,4.0,7.0,7.0},
-                {9.0,10.0,5.0,8.0}};
-        int[] expectRemove = {0,1,1,2};
+                {6.0,4.0,7.0,7.0}};
+        int[] expectRemove = {0,1,1};
 
         assertArrayEquals(expectRemove, testSeams.calcRemoveSeam(testRemove));
     }

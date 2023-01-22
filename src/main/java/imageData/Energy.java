@@ -44,12 +44,12 @@ public class Energy {
         this.min = MAX_ENERGY;
         int width = original[0].length;
         int height = original.length;
-        energyArray = new double[width][height];
+        energyArray = new double[height][width];
 
         for (int row = 0; row < energyArray.length; row++) {
             for (int col = 0; col < energyArray[row].length; col++) {
                 int energyPixel;
-                if (row == 0 || row >= (width-1) || col == 0 || col >= (height-1)) {
+                if (row == 0 || row >= (height-1) || col == 0 || col >= (width-1)) {
                     energyPixel = MAX_ENERGY;
                 } else {
                     Color left = new Color(original[row][col - 1]);
