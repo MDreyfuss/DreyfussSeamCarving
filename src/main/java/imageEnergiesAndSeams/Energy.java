@@ -57,12 +57,7 @@ public class Energy {
                     Color up = new Color(original[row - 1][col]);
                     Color down = new Color(original[row + 1][col]);
 
-                    energyPixel = (up.getRed() - down.getRed()) * (up.getRed() - down.getRed())
-                            + (up.getGreen() - down.getGreen()) * (up.getGreen() - down.getGreen())
-                            + (up.getBlue() - down.getBlue()) * (up.getBlue() - down.getBlue())
-                            + (left.getRed() - right.getRed()) * (left.getRed() - right.getRed())
-                            + (left.getGreen() - right.getGreen()) * (left.getGreen() - right.getGreen())
-                            + (left.getBlue() - right.getBlue()) * (left.getBlue() - right.getBlue());
+                    energyPixel = getEnergyPixelg(left, right, up, down);
 
                     if (energyPixel > max)
                     {
@@ -78,6 +73,15 @@ public class Energy {
             }
         }
         return energyArray;
+    }
+
+    private int getEnergyPixel(Color left, Color right, Color up, Color down) {
+        return (up.getRed() - down.getRed()) * (up.getRed() - down.getRed())
+                + (up.getGreen() - down.getGreen()) * (up.getGreen() - down.getGreen())
+                + (up.getBlue() - down.getBlue()) * (up.getBlue() - down.getBlue())
+                + (left.getRed() - right.getRed()) * (left.getRed() - right.getRed())
+                + (left.getGreen() - right.getGreen()) * (left.getGreen() - right.getGreen())
+                + (left.getBlue() - right.getBlue()) * (left.getBlue() - right.getBlue());
     }
 
     public double[][] getEnergyArray() {
