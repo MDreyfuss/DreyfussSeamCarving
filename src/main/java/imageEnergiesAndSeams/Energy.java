@@ -57,7 +57,7 @@ public class Energy {
                     Color up = new Color(original[row - 1][col]);
                     Color down = new Color(original[row + 1][col]);
 
-                    energyPixel = getEnergyPixelg(left, right, up, down);
+                    energyPixel = getEnergyPixel(left, right, up, down);
 
                     if (energyPixel > max)
                     {
