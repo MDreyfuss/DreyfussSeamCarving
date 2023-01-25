@@ -6,10 +6,12 @@ public class Image {
     private BufferedImage bufferedImage;
     private int[][] originalPic;
     private int[][] currentPic;
+    private BufferedImage currBufferedImage;
     private Energy energy;
 
     public Image(BufferedImage bufferedImage){
         this.bufferedImage = bufferedImage;
+        this.currBufferedImage = bufferedImage;
         buildColorArray(this.bufferedImage);
         this.energy = new Energy(originalPic);
     }
@@ -49,16 +51,20 @@ public class Image {
         int height = currentPic.length;
         int width = currentPic[0].length;
         int[][] newImage = new int[height - 1][width];
+        BufferedImage newBufferedImage = new BufferedImage(width,height - 1, BufferedImage.TYPE_INT_RGB);
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height-1; y++) {
                 if (y < seamToRemove[x]){
+                    newBufferedImage.setRGB(x, y, currBufferedImage.getRGB(x, y));
                     newImage[y][x] = currentPic[y][x];
                 }
                 else{
                     newImage[y][x] = currentPic[y+1][x];
+                    newBufferedImage.setRGB(x, y, currBufferedImage.getRGB(x, y + 1));
                 }
             }
         }
+        currBufferedImage = newBufferedImage;
         return newImage;
     }
 
@@ -66,20 +72,35 @@ public class Image {
         int height = currentPic.length;
         int width = currentPic[0].length;
         int[][] newImage = new int[height][width - 1];
+        BufferedImage newBufferedImage = new BufferedImage(width - 1,height, BufferedImage.TYPE_INT_RGB);
         for (int x = 0; x < width-1; x++) {
             for (int y = 0; y < height; y++) {
                 if (x < seamToRemove[y]){
                     newImage[y][x] = currentPic[y][x];
+                    newBufferedImage.setRGB(x, y, currBufferedImage.getRGB(x, y));
                 }
                 else{
                     newImage[y][x] = currentPic[y][x+1];
+                    newBufferedImage.setRGB(x, y, currBufferedImage.getRGB(x + 1, y));
                 }
             }
         }
+        currBufferedImage = newBufferedImage;
         return newImage;
+    }
+
+    public BufferedImage resizeImage(int newHeight, int newWidth)
+    {
+        horizontalSeamCarving(currentPic.length - newHeight);
+        verticalSeamCarving(currentPic[0].length - newWidth);
+        return currBufferedImage;
     }
 
     public int[][] getCurrentPic() {
         return currentPic;
+    }
+
+    public BufferedImage getCurrBufferedImage() {
+        return currBufferedImage;
     }
 }
