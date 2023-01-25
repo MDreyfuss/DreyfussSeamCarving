@@ -3,14 +3,16 @@ package imageEnergiesAndSeams;
 import java.awt.image.BufferedImage;
 
 public class Image {
-    private BufferedImage bufferedImage;
+    private BufferedImage originalBufferedImage;
     private int[][] originalPic;
     private int[][] currentPic;
+    private BufferedImage currBufferedImage;
     private Energy energy;
 
-    public Image(BufferedImage bufferedImage){
-        this.bufferedImage = bufferedImage;
-        buildColorArray(this.bufferedImage);
+    public Image(BufferedImage originalBufferedImage){
+        this.originalBufferedImage = originalBufferedImage;
+        this.currBufferedImage = originalBufferedImage;
+        buildColorArray(this.originalBufferedImage);
         this.energy = new Energy(originalPic);
     }
 
@@ -79,7 +81,30 @@ public class Image {
         return newImage;
     }
 
+    public BufferedImage resizeImage(int newHeight, int newWidth)
+    {
+        horizontalSeamCarving(currentPic.length - newHeight);
+        verticalSeamCarving(currentPic[0].length - newWidth);
+        return createBufferedImage();
+    }
+
     public int[][] getCurrentPic() {
         return currentPic;
+    }
+
+    public BufferedImage getCurrBufferedImage() {
+        return currBufferedImage;
+    }
+
+    private BufferedImage createBufferedImage()
+    {
+        BufferedImage newBufferedImage = new BufferedImage(currentPic[0].length, currentPic.length, BufferedImage.TYPE_INT_RGB);
+        for (int x = 0; x < currentPic[0].length; x++) {
+            for (int y = 0; y < currentPic.length; y++) {
+                newBufferedImage.setRGB(x, y, currentPic[y][x]);
+            }
+        }
+        currBufferedImage = newBufferedImage;
+        return currBufferedImage;
     }
 }
